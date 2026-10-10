@@ -131,12 +131,10 @@ function renderExpenses() {
   const incomeValue = document.getElementById("incomeValue");
   const expenseValue = document.getElementById("expenseValue");
   const netValue = document.getElementById("netValue");
-  const dailyProfit = document.getElementById("dailyProfit");
 
   incomeValue.textContent = formatter.format(totalSales);
   expenseValue.textContent = formatter.format(totalExpenses);
   netValue.textContent = formatter.format(totalSales - totalExpenses);
-  dailyProfit.textContent = formatter.format(totalSales - totalExpenses);
 }
 
 function renderSummaryCards() {
@@ -240,26 +238,27 @@ otpVerifyForm.addEventListener("submit", (event) => {
   }
 });
 
-renderStock();
-renderCustomers();
-renderSales();
-renderExpenses();
-renderSummaryCards();
+function activateSection(sectionName) {
+  const panels = document.querySelectorAll("[data-section-panel]");
+  panels.forEach((panel) => {
+    const shouldShow = panel.dataset.sectionPanel === sectionName || sectionName === "overview";
+    panel.classList.toggle("hidden-panel", !shouldShow);
+  });
+}
 
 const navButtons = document.querySelectorAll(".nav-item");
 navButtons.forEach((button) => {
   button.addEventListener("click", () => {
     navButtons.forEach((item) => item.classList.remove("active"));
     button.classList.add("active");
-
-    const target = button.dataset.section;
-    document.querySelectorAll("[data-section-panel]").forEach((panel) => {
-      panel.style.display = panel.dataset.sectionPanel === target ? "block" : "block";
-    });
+    activateSection(button.dataset.section);
   });
 });
 
-window.addEventListener("DOMContentLoaded", () => {
-  logout();
-});
-
+renderStock();
+renderCustomers();
+renderSales();
+renderExpenses();
+renderSummaryCards();
+activateSection("overview");
+logout();
