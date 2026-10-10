@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TyrePro Business Hub</title>
+    <meta
+      name="description"
+      content="Professional tyre business website for employee login, stock tracking, customer management, sales, expenses, and OTP-based customer service."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" id="sidebar">
+        <div class="brand-row">
+          <div class="brand-icon">T</div>
+          <div>
+            <p class="eyebrow">Fleet & Tyre</p>
+            <h1>TyrePro</h1>
+          </div>
+        </div>
+
+        <nav class="nav">
+          <button class="nav-item active" data-section="overview">
+            <span>Overview</span>
+          </button>
+          <button class="nav-item" data-section="inventory">
+            <span>Tyre Stock</span>
+          </button>
+          <button class="nav-item" data-section="customers">
+            <span>Customers</span>
+          </button>
+          <button class="nav-item" data-section="sales">
+            <span>Sales</span>
+          </button>
+          <button class="nav-item" data-section="finance">
+            <span>Profit & Expense</span>
+          </button>
+          <button class="nav-item" data-section="service">
+            <span>Customer Service</span>
+          </button>
+        </nav>
+
+        <div class="logout-box">
+          <button class="ghost-button" id="logoutBtn">Log out</button>
+        </div>
+      </aside>
+
+      <main class="main-panel">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Business Dashboard</p>
+            <h2>Tyre Business Management</h2>
+          </div>
+          <div class="user-badge">
+            <div class="avatar" id="employeeAvatar">A</div>
+            <div>
+              <strong id="topbarEmployeeName">Employee</strong>
+              <small id="topbarEmployeeRole">Role</small>
+            </div>
+          </div>
+        </header>
+
+        <section class="login-screen" id="loginScreen">
+          <div class="login-card">
+            <div class="login-copy">
+              <p class="eyebrow accent">Welcome back</p>
+              <h3>Manage your tyre business with confidence</h3>
+              <p>
+                Track stock, customer records, daily revenues, expense reports,
+                and customer support from one professional dashboard.
+              </p>
+              <ul class="feature-list">
+                <li>Employee login access</li>
+                <li>Real-time stock monitoring</li>
+                <li>Customer service OTP verification</li>
+                <li>Daily profit analysis</li>
+              </ul>
+            </div>
+
+            <form id="loginForm" class="login-form">
+              <h4>Employee Login</h4>
+              <label>
+                Employee ID
+                <input id="employeeId" type="text" value="EMP-101" required />
+              </label>
+              <label>
+                Password
+                <input id="employeePassword" type="password" value="123456" required />
+              </label>
+              <button type="submit" class="primary-button">Login to Dashboard</button>
+              <p class="demo-note">Demo login: EMP-101 / 123456</p>
+            </form>
+          </div>
+        </section>
+
+        <section class="dashboard hidden" id="dashboard">
+          <div class="stats-grid">
+            <article class="stat-card highlight">
+              <div>
+                <span>Available Stock</span>
+                <h3 id="stockTotal">0</h3>
+              </div>
+              <span class="trend positive">+12.4%</span>
+            </article>
+
+            <article class="stat-card">
+              <div>
+                <span>Today Sales</span>
+                <h3 id="todaySales">$0</h3>
+              </div>
+              <span class="trend positive">+8.1%</span>
+            </article>
+
+            <article class="stat-card">
+              <div>
+                <span>Daily Profit</span>
+                <h3 id="dailyProfit">$0</h3>
+              </div>
+              <span class="trend positive">Strong</span>
+            </article>
+
+            <article class="stat-card alert">
+              <div>
+                <span>Expenses</span>
+                <h3 id="expenseTotal">$0</h3>
+              </div>
+              <span class="trend danger">Review</span>
+            </article>
+          </div>
+
+          <div class="panel-grid">
+            <section class="panel panel-large" data-section-panel="inventory">
+              <div class="panel-header">
+                <h3>Tyre Stock</h3>
+                <button class="mini-button">
+                  + Add Stock
+                </button>
+              </div>
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Brand</th>
+                      <th>Type</th>
+                      <th>Size</th>
+                      <th>Qty</th>
+                      <th>Price</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody id="stockTableBody"></tbody>
+                </table>
+              </div>
+            </section>
+
+            <section class="panel" data-section-panel="customers">
+              <div class="panel-header">
+                <h3>Customer Details</h3>
+                <button class="mini-button alt">
+                  + New Customer
+                </button>
+              </div>
+              <div class="table-wrap compact">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Phone</th>
+                      <th>Vehicle</th>
+                    </tr>
+                  </thead>
+                  <tbody id="customerTableBody"></tbody>
+                </table>
+              </div>
+            </section>
+          </div>
+
+          <div class="panel-grid lower-grid">
+            <section class="panel" data-section-panel="sales">
+              <div class="panel-header">
+                <h3>Sales Activity</h3>
+                <span class="badge">Today</span>
+              </div>
+              <div class="list-stack" id="salesList"></div>
+            </section>
+
+            <section class="panel" data-section-panel="finance">
+              <div class="panel-header">
+                <h3>Daily Profit & Expense</h3>
+                <span class="badge neutral">Income</span>
+              </div>
+              <div class="finance-summary">
+                <div>
+                  <label>Income</label>
+                  <strong id="incomeValue">$0</strong>
+                </div>
+                <div>
+                  <label>Expense</label>
+                  <strong id="expenseValue">$0</strong>
+                </div>
+                <div>
+                  <label>Net</label>
+                  <strong id="netValue">$0</strong>
+                </div>
+              </div>
+              <div class="expense-list" id="expenseList"></div>
+            </section>
+
+            <section class="panel service-panel" data-section-panel="service">
+              <div class="panel-header">
+                <h3>Customer Service OTP</h3>
+                <span class="badge success">Secure</span>
+              </div>
+
+              <form id="otpRequestForm" class="otp-form">
+                <label>
+                  Customer Phone
+                  <input type="tel" id="customerPhone" placeholder="+1 234 567 890" required />
+                </label>
+                <button type="submit" class="primary-button">Send OTP</button>
+              </form>
+
+              <form id="otpVerifyForm" class="otp-form secondary">
+                <label>
+                  Enter OTP
+                  <input type="text" id="otpInput" placeholder="123456" maxlength="6" required />
+                </label>
+                <button type="submit" class="secondary-button">Verify & Confirm</button>
+              </form>
+
+              <div class="otp-status" id="otpStatus">No OTP sent yet.</div>
+            </section>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
